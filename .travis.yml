@@ -1,20 +1,16 @@
 language: python
-
 os: linux
 dist: xenial
-
 python:
-  - 3.7
-  - &mainstream_python 3.8
-  - nightly
-
+- 3.7
+- &mainstream_python 3.8
+- 3.9
+- nightly
 install:
-  - "pip install coveralls"
-  - "pip install -e src"
-
+- "pip install tox-travis"
+- "pip install coveralls"
 script:
-  - "coverage run --source=src -m unittest discover tests -v"
-
+- "tox"
 after_success:
-  - coveralls
-  - "python -m unittest discover benchmarks -v"
+- coveralls
+- "tox -e benchmarks
